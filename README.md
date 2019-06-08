@@ -1,0 +1,2 @@
+# LockerPi
+The Locker Pi project will be a secure, network connected door lock system. It will use a single board computer (SBC) to allow validated access from mobile devices and other computers. The goal of this project is to create a reproducible smart lock system that provides a template and software package for individuals who enjoy DIY projects but may have limited experience with software development.
