@@ -1,0 +1,20 @@
+BerryBoot - multi-OS bootloader
+https://www.techrepublic.com/pictures/choosing-a-raspberry-pi-os-heres-the-definitive-list/33/
+
+
+
+DietPi - lightweight, fine-grain control
+https://www.techrepublic.com/pictures/choosing-a-raspberry-pi-os-heres-the-definitive-list/25/
+
+
+Tiny Core Linux - tiny OS (can run on ram) fastest
+https://www.techrepublic.com/pictures/choosing-a-raspberry-pi-os-heres-the-definitive-list/19/
+
+
+Alpine Linux - lightweight, security-focus, aimed at power users
+https://www.techrepublic.com/pictures/choosing-a-raspberry-pi-os-heres-the-definitive-list/16/
+
+
+Miniban - light-weight version of Raspbian w/out GUI
+https://www.techrepublic.com/pictures/choosing-a-raspberry-pi-os-heres-the-definitive-list/28/
+

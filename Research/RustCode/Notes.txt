@@ -1,0 +1,24 @@
+
+command line arguments
+
+Rust offline book (html):
+	>rustup doc
+
+Compile then run single file:
+	>rustc <filename>.rust
+	.\<filename>.exe
+
+Create new project:
+	>cargo new <name of new project>
+
+Check for errors* w/out compiling:
+	>cargo check
+
+Compile project*:
+	>cargo build
+
+Compile and run project*:
+	>cargo run
+
+	*: save changes first
+

@@ -1,0 +1,7 @@
+[package]
+name = "prtice"
+version = "0.1.0"
+authors = ["David Russell <davidr0013@gmail.com>"]
+edition = "2018"
+
+[dependencies]
