@@ -1,0 +1,202 @@
+     *****  command line time format  *****
+
+
+command format: 
+(cannot mix day with date, or date with day for a single restriction)
+        
+<day/date>                                               -- single day/date --    
+<start time>-<end time>_<day/date>                       -- single day/date with recurring start/end time --      
+<start day/date>-<end day/date>                          -- day/date range --       
+<start day/date>_<start time>-<end day/date>_<end time>  -- day/date range with time (start & end) --    
+<start time>-<end time>_<start day/date>-<end day/date>  -- day/date range with recurring start/end time --     
+<day/date> <date with recurring time> <day/date range>   -- multiple restrictions, order agnostic --
+
+day format:
+mon | tue | wed | thu | fri | sat | sun
+
+date format: 
+mm/dd/yyyy
+
+time format:
+hh:mm[am | pm]
+
+range format:
+start must be before end
+
+day restrictions outside of a date restriction will apply to:
+    all time - if there are no date restrictions
+    otherwise - only the date restrictions without day restrictions
+
+subset or superset overlaps for date-date will split
+    restriction 1    +++++++++++++++++
+    restriction 2          ~~~~
+    split larger     ++++++    +++++++
+    combine smaller  ++++++~~~~+++++++
+
+partial overlaps will override first
+    restriction 1st    +++++++++++++++++
+    restriction 2nd             ~~~~~~~~~~~
+    combined           +++++++++~~~~~~~~~~~
+
+
+{
+    
+
+
+
+    specific -->
+        <start time>-<end time>_<date>                          05:30am-8:00am_12/13/2019
+        <start time>-<end time>_<day>                           05:30am-8:00am_mon
+        <start date>_<start time>-<end date>_<end time>         12/13/2019_05:30am-01/01/2020_8:00am
+        <start day>_<start time>-<end day>_<end time>           mon_05:30am-wed_8:00am
+        <date>                                                  12/13/2019
+        <day>                                                   mon
+        <start time>-<end time>_<start date>-<end date>         05:30am-8:00am_12/13/2019-01/01/2020
+        <start time>-<end time>_<start day>-<end day>           05:30am-8:00am_sat-sun
+        <start date>-<end date>                                 12/13/2019-01/01/2020
+        <start day>-<end day>                                   mon-fri
+    <-- general
+
+    date with time range  --->  10:00pm-11:59pm_12/24/2019
+    day with time range  --->  10:00pm-11:59pm_mon
+    start/end date (non recurring, with time)  --->  01/01/2020_11:00am-
+    start/end day (non recurring, with time)
+    date
+    day
+    date range (with recurring time)
+    day range (with recurring time)
+    date range (without time)
+    day range (without time)
+}
+
+Time: 05:00am
+Day: mon
+Date: 12/08/2019
+
+DateRange(single_date, times = AllDay) //start_day = end_day
+DateRange(single_date, times) //start_day = end_day
+    <date>
+    <date>_<startTime>-<endTime>
+        12/08/2019
+        12/08/2019_05:00am-06:00am
+
+DateRange(start_date, end_date)
+DateRange(start_date, end_date, times, days)
+DateRange(start_date, end_date, times)
+    <start_date>-<end_date>
+    <start_date>-<end_date>_<startTime>-<endTime>[_<day>[_<startTime>-<endTime>]_<day>_[<startTime>-<endTime>]...]
+    <start_date>-<end_date>[_<day>_<startTime>-<endTime>[_<day>_<startTime>-<endTime>]...]
+        12/08/2019-12/18/2019
+        12/08/2019-12/18/2019_05:00am-06:00pm _mon_05:00am-06:00am _mon_10:30am-11:50am _tue_05:00am-06:00am_ fri
+        12/08/2019-12/18/2019 _mon _fri_05:00am-06:00am
+
+DateRange()
+DateRange(days) // start_date = Now, end_date = Never
+DateRange(days) // start_date = Now, end_date = Never
+    [<day>_[<startTime>-<endTime>]_<day>[_<startTime>-<endTime>]...]
+        <empty>
+        mon_ fri
+        mon_05:00am-06:00am 
+        mon_10:30am-11:50am 
+        _tue_05:00am-06:00am 
+        _fri
+
+
+Day(day, times = AllDay)
+        mon
+        mon_05:00am-06:00am 
+        mon_10:30am-11:50am
+
+
+#[derive(Debug)]
+pub struct Time {
+    hour: u8,
+    minute: u8,
+    period: String,
+}
+
+struct TimeRange {
+    start_time: Time => <hh>:<mm>am | <hh>:<mm>pm
+    end_time: Time
+}
+TimeRange::AllDay => start_time = Never, end_time = Never
+TimeRange::Never
+
+struct TimeRangeSet {
+    pub is_valid(TimeRange)
+    pub add(TimeRange)
+    pub remove(TimeRange or index)
+    pub to_string()
+
+    split(TimeRange or index, new_end: Time, new_start: Time)
+    range: Vec<TimeRange>
+}
+TimeRangeSet::AllDay
+
+struct Day {
+    Day(day: DayType, times: TimeRangeSet = TimeRangeSet::AllDay)
+
+    pub enum DayType { Mon, Tue, Wed, Thu, Fri, Sat, Sun }
+
+    day: DayType
+    range: TimeRangeSet
+}
+Day::AllDay
+Day::Start
+Day::End
+
+struct DaySet {
+    pub is_valid(Day::DayType, TimeRange)
+    pub add(Day::DayType, TimeRange)
+    pub add(Day::DayType)
+    pub remove(Day::DayType, TimeRange or index)
+    pub remove(Day::DayType)
+    pub to_string()
+
+    split(Day::DayType, TimeRange or index, new_end: Time, new_start: Time)
+    day[7]: Day
+}
+DaySet::AllDays
+
+struct Date{
+    Date(date: String)
+    month: char[2]
+    day: char[2]
+    year: char[4]
+
+    validate(date: String)
+}
+Date::Never
+Date::Now
+
+struct DateRange{
+
+    DateRange(start_date: Date, end_date: Date, 
+        times: TimeRangeSet, days: DaySet = DaySet::AllDays)
+
+    DateRange(single_date: Date, 
+        times: TimeRangeSet = TimeRangeSet::AllDay) //start_day = end_day
+
+    DateRange(time: TimeRange, days: DaySet = DaySet::AllDays) // start_date = Date::Now, end_date = Date::Never
+
+    DateRange(days: DaySet = DaySet::AllDays) // start_date = Date::Now, end_date = Date::Never
+
+    start_date: Date
+    end_date: Date
+    time: TimeRangeSet
+    days: DaySet
+}
+DateRange::Never
+
+struct DateRangeSet {
+    pub is_valid(DateRange)
+    pub add(DateRange)
+    pub remove(DateRange or index)
+    pub to_string()
+
+    split(DateRange or index, new_end: DateTime, new_start: DateTime)
+    range: list<DateRange>
+}
+
+user.restrictions: DateRangeSet
+

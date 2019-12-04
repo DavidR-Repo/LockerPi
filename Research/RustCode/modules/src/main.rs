@@ -56,7 +56,7 @@ Paths: A way of naming an item, such as a struct, function, or module
         mod back_of_house {
             pub struct Breakfast {
                 pub toast: String, //now Breakfast.toast can be used
-                seasonal_fruit: String, //still private, cannot be access from surrounding scope
+                seasonal_fruit: String, //still private, cannot be accessed from surrounding scope
             }
         }
         surrounding scope will not be able to instantiate unless private method or constructor sets seasonal_fruit
@@ -116,7 +116,7 @@ Spliting up files:
         pub fn add_to_waitlist() {}
     }
     // because hosting is in the file src/front_of_house.rs it is implied that 
-    // it is a child module of front_of-house
+    // it is a child module of front_of_house
 */
 
 fn main() {

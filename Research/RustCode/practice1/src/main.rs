@@ -69,7 +69,8 @@ fn ownership1() {
 
 	// using 'let y = x;' would result in an error
 	//   because contents of y are moved to x
-	//   and y in invalidated
+	//   and y is
+	invalidated
 	let y = x.clone();
 	println!("x = {},  y = {}", x, y);
 
@@ -113,7 +114,7 @@ fn multiple_ownership () {
 		let y = &s; // y is also not mutable
 		println!("x: {}  y: {}", x, y);
 
-		// either one mutable reference or any number of immutable references
+		// either: one mutable reference, or any number of immutable references
 		// only allowed because x and y are no longer used
 		// when used in println!
 		let z = &mut s; // 'let k = &mut s;' would fail to compile
