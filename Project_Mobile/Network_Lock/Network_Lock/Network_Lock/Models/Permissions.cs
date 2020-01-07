@@ -5,8 +5,10 @@ namespace Network_Lock.Models
 {
     public class Permissions
     {
+        public static List<string> NoRestrictions = new List<string>{ "No Restrictions" };
         private List <string> Values { get; set; }
-        public IEnumerable<string> GetPermissions => Values;
+        public IEnumerable<string> GetPermissions => 
+            (Values == null || Values.Count == 0) ? NoRestrictions : Values;
 
         public bool Add(string permission)
         {

@@ -1,4 +1,5 @@
-﻿
+﻿using System;
+
 using Network_Lock.Models;
 
 namespace Network_Lock.ViewModels

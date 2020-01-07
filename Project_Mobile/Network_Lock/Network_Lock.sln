@@ -7,7 +7,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Network_Lock.Android", "Net
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Network_Lock.iOS", "Network_Lock\Network_Lock.iOS\Network_Lock.iOS.csproj", "{786F0FEA-9039-4BFD-BC9D-4712F93BBA88}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Network_Lock", "Network_Lock\Network_Lock\Network_Lock.csproj", "{03F41AD1-3BCA-415F-8F81-CC7AC1E83BCE}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Network_Lock", "Network_Lock\Network_Lock\Network_Lock.csproj", "{03F41AD1-3BCA-415F-8F81-CC7AC1E83BCE}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
