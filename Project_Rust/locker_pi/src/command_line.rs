@@ -60,7 +60,7 @@ pub fn handle_usage() {
 }
 
 pub fn handle_list(_cmd: Vec<String>) {
-
+    
 }
 
 pub fn handle_add(_cmd: Vec<String>) {

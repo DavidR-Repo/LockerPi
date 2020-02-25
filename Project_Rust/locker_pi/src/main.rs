@@ -13,7 +13,7 @@ fn main() {
 
     println!("Beginning program...\n");
     
-    let use_fake_input = false;
+    let use_fake_input = true;
     let debug = dbg::help();
     let mut cmd: Vec<String> = env::args().collect();
     
@@ -40,7 +40,8 @@ fn main() {
         match c {
             Cmd::None => {
                 println!("Error, invalid command: {}", &cmd[1]);
-                println!("For available commands, use:  locker_pi.exe -help");
+                // println!("For available commands, use:  locker_pi.exe -help");
+                cmdln::handle_usage()
             },
             Cmd::Help => {
                 println!("Command: {}", &cmd[1]);
