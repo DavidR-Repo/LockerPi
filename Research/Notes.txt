@@ -1,0 +1,5 @@
+VNC (Virtual Network Computing)
+https://www.electronicwings.com/raspberry-pi/access-raspberry-pi-on-laptop-using-wi-fi
+
+Find Pi address from laptop
+https://www.raspberrypi.org/documentation/remote-access/ip-address.md
